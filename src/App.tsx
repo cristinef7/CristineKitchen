@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import About from "./pages/About";
@@ -12,7 +12,7 @@ import EditRecipe from "./pages/EditRecipe";
 function App() {
   return (
     <Router>
-      <Navbar />
+      <Header />
       <div className="min-h-screen bg-gray-50">
         <Routes>
           <Route path="/" element={<Home />} />

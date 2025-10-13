@@ -2,21 +2,47 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const AddRecipe: React.FC = () => {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [instructions, setInstructions] = useState("");
+  const [image, setImage] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!image) {
+      alert("❌ Please upload an image before submitting.");
+      return;
+    }
+
     try {
+      setUploading(true);
+
+      // 🔹 Step 1: Upload image to Firebase Storage
+      const storage = getStorage();
+      const storageRef = ref(storage, `recipe-images/${Date.now()}-${image.name}`);
+      await uploadBytes(storageRef, image);
+
+      // 🔹 Step 2: Get the download URL
+      const imageUrl = await getDownloadURL(storageRef);
+
+      // 🔹 Step 3: Save recipe data to Firestore
       await addDoc(collection(db, "recipes"), {
         title,
         ingredients,
         instructions,
+        image: imageUrl,
         createdAt: new Date(),
       });
 
@@ -24,17 +50,20 @@ const AddRecipe: React.FC = () => {
       setTitle("");
       setIngredients("");
       setInstructions("");
-      navigate("/"); // Redirect to homepage after adding
+      setImage(null);
+      navigate("/");
     } catch (error) {
       console.error("Error adding recipe:", error);
       alert("❌ Failed to add recipe. Please try again.");
+    } finally {
+      setUploading(false);
     }
   };
 
   const handleCancel = () => {
     const confirmCancel = window.confirm("Are you sure you want to cancel?");
     if (confirmCancel) {
-      navigate("/"); // Go back to homepage
+      navigate("/");
     }
   };
 
@@ -65,12 +94,22 @@ const AddRecipe: React.FC = () => {
           required
         />
 
+        {/* 🔹 Image Upload Field */}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+
         <div className="flex gap-3">
           <button
             type="submit"
-            className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            disabled={uploading}
+            className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
           >
-            Add Recipe
+            {uploading ? "Uploading..." : "Add Recipe"}
           </button>
 
           <button

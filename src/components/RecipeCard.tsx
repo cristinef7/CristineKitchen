@@ -27,9 +27,9 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           // alt={recipe.title}
           className="w-full h-32 object-cover"
         />
-        <div className="p-3">
-          <h3 className="font-semibold text-lg">{recipe.title}</h3>
-          <p className="text-sm text-gray-600">
+        <div className="p-2">
+          <h3 className="font-semibold text-2xl">{recipe.title}</h3>
+          <p className="text-lg text-gray-600">
             {/* {recipe.description || "No description"} */}
           </p>
         </div>
@@ -40,7 +40,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
       <button
         onClick={() => onAddToFavorites(recipe)}
         disabled={addingFavorite === recipe.id}
-        className="bg-pink-500 hover:bg-pink-600 text-white text-sm px-3 py-3 m-3 rounded-xl transition disabled:opacity-50 self-start"
+        className="bg-pink-500 hover:bg-pink-600 text-white text-3xl px-2 py-1 m-3 rounded-2xl transition disabled:opacity-50 self-start"
       >
         {addingFavorite === recipe.id ? "Adding..." : "♡"}
       </button>

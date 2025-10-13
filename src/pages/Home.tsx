@@ -51,31 +51,55 @@ const Home = () => {
   if (loading) return <div className="p-6">Loading recipes...</div>;
 
   return (
-    <div className="min-h-screen bg-[#fae8f1]">
-    <div className="p-6">
-      {/* Header Section */}
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Recipes</h1>
+    <div className="min-h-screen bg-[#fae8f1] flex">
+      {/* 🌸 Left Sidebar Menu */}
+      <div className="w-64 bg-[#d13289] text-white p-6 flex flex-col">
+        <h2 className="text-xl font-bold mb-6">Menu</h2>
+        <Link
+          to="/"
+          className="hover:bg-pink-700 px-3 py-2 rounded-md transition"
+        >
+          Home
+        </Link>
+        <Link
+          to="/favorites"
+          className="hover:bg-pink-700 px-3 py-2 rounded-md transition"
+        >
+          Favorites
+        </Link>
         <Link
           to="/add-recipe"
-          className="bg-[#d13289] hover:bg-[#ad1066] text-white font-bold  px-4 py-3 rounded-full"
+          className="hover:bg-pink-700 px-3 py-2 rounded-md transition"
         >
           Add Recipe
         </Link>
       </div>
 
-      {/* Recipe Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {recipes.map((recipe) => (
-          <RecipeCard
-            key={recipe.id}
-            recipe={recipe}
-            onAddToFavorites={handleAddToFavorites}
-            addingFavorite={addingFavorite}
-          />
-        ))}
+      {/* 🍰 Right Side: Recipes Section */}
+      <div className="flex-1 p-6">
+        {/* Header Section */}
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-bold">Recipes</h1>
+          <Link
+            to="/add-recipe"
+            className="bg-[#d13289] hover:bg-[#ad1066] text-white font-bold px-4 py-3 rounded-full"
+          >
+            Add Recipe
+          </Link>
+        </div>
+
+        {/* Recipe Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {recipes.map((recipe) => (
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              onAddToFavorites={handleAddToFavorites}
+              addingFavorite={addingFavorite}
+            />
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
