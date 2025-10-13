@@ -51,13 +51,14 @@ const Home = () => {
   if (loading) return <div className="p-6">Loading recipes...</div>;
 
   return (
+    <div className="min-h-screen bg-[#fae8f1]">
     <div className="p-6">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Recipes</h1>
         <Link
           to="/add-recipe"
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md"
+          className="bg-[#d13289] hover:bg-[#ad1066] text-white font-bold  px-4 py-3 rounded-full"
         >
           Add Recipe
         </Link>
@@ -74,6 +75,7 @@ const Home = () => {
           />
         ))}
       </div>
+    </div>
     </div>
   );
 };

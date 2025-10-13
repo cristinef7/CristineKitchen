@@ -63,7 +63,7 @@ const RecipeDetails = () => {
   if (!recipe) return <div className="p-6">Recipe not found.</div>;
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="p-6 min-w-fit mx-5 ">
       {/* Back Button */}
       <button
         onClick={() => navigate("/")}

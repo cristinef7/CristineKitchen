@@ -19,30 +19,32 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   addingFavorite,
 }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition flex flex-col">
+    <div className="bg-white shadow-md rounded-3xl overflow-hidden hover:shadow-lg hover:bg-[#fadeed] transition flex flex-col">
       {/* 🖼 Clickable Image and Title */}
       <Link to={`/recipe/${recipe.id}`} className="flex-1">
         <img
           src={recipe.image}
-          alt={recipe.title}
-          className="w-full h-48 object-cover"
+          // alt={recipe.title}
+          className="w-full h-32 object-cover"
         />
-        <div className="p-4">
+        <div className="p-3">
           <h3 className="font-semibold text-lg">{recipe.title}</h3>
           <p className="text-sm text-gray-600">
-            {recipe.description || "No description"}
+            {/* {recipe.description || "No description"} */}
           </p>
         </div>
       </Link>
 
       {/* ❤️ Smaller Add to Favorites Button */}
+      <div className="flex justify-end">
       <button
         onClick={() => onAddToFavorites(recipe)}
         disabled={addingFavorite === recipe.id}
-        className="bg-pink-500 hover:bg-pink-600 text-white text-sm px-3 py-1 m-3 rounded-md transition disabled:opacity-50 self-start"
+        className="bg-pink-500 hover:bg-pink-600 text-white text-sm px-3 py-3 m-3 rounded-xl transition disabled:opacity-50 self-start"
       >
-        {addingFavorite === recipe.id ? "Adding..." : "❤️ Favorite"}
+        {addingFavorite === recipe.id ? "Adding..." : "♡"}
       </button>
+      </div>
     </div>
   );
 };
