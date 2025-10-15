@@ -3,6 +3,7 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
+import Sidebar from "../components/Sidebar";
 
 interface Recipe {
   id: string;
@@ -53,27 +54,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-[#fae8f1] flex">
       {/* 🌸 Left Sidebar Menu */}
-      <div className="w-64 bg-[#d13289] text-white p-6 flex flex-col">
-        <h2 className="text-xl font-bold mb-6">Menu</h2>
-        <Link
-          to="/"
-          className="hover:bg-pink-700 px-3 py-2 rounded-md transition"
-        >
-          Home
-        </Link>
-        <Link
-          to="/favorites"
-          className="hover:bg-pink-700 px-3 py-2 rounded-md transition"
-        >
-          Favorites
-        </Link>
-        <Link
-          to="/add-recipe"
-          className="hover:bg-pink-700 px-3 py-2 rounded-md transition"
-        >
-          Add Recipe
-        </Link>
-      </div>
+      <Sidebar/>
 
       {/* 🍰 Right Side: Recipes Section */}
       <div className="flex-1 p-6">
