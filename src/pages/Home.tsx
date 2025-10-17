@@ -61,12 +61,6 @@ const Home = () => {
         {/* Header Section */}
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">Recipes</h1>
-          <Link
-            to="/add-recipe"
-            className="bg-[#d13289] hover:bg-[#ad1066] text-white font-bold px-4 py-3 rounded-full"
-          >
-            Add Recipe
-          </Link>
         </div>
 
         {/* Recipe Grid */}

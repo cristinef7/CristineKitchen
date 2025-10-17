@@ -6,7 +6,7 @@ const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-[#f54ca9] text-white shadow-md sticky top-0 z-50 h-14">
+    <nav className="bg-[#f54ca9] text-white shadow-md sticky top-0 z-50 h-14s">
       {/* Top Bar */}
       <div className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative">
         {/* Empty left space to help center the title */}
