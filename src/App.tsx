@@ -7,6 +7,7 @@ import RecipeDetails from "./pages/RecipeDetails";
 import './index.css';
 import AddRecipe from "./pages/AddRecipe";
 import EditRecipe from "./pages/EditRecipe";
+import Categories from "./pages/Categories";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/recipe/:id" element={<RecipeDetails />} /> 
           <Route path="/add-recipe" element={<AddRecipe />} />
           <Route path="/edit-recipe/:id" element={<EditRecipe />} />
+          <Route path="/categories" element={<Categories/>}/>
         </Routes>
       </div>
     </Router>

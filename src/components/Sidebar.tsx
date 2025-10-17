@@ -24,11 +24,23 @@ const Sidebar = () => {
         <Link
           to="/"
           className="px-4 py-2 rounded-lg mb-2 hover:bg-pink-700/70 transition"
+          
         >
           Home
         </Link>
 
         {/* Favorites — only highlighted when active */}
+        <Link
+          to="/categories"
+          className={`px-4 py-2 rounded-lg mb-2 transition ${
+            location.pathname === "/categories"
+              ? "bg-pink-700 shadow-md font-semibold"
+              : "hover:bg-pink-700/70"
+          }`}
+        >
+          Categories
+        </Link>
+
         <Link
           to="/favorites"
           className={`px-4 py-2 rounded-lg mb-2 transition ${
