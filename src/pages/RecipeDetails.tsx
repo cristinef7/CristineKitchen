@@ -2,6 +2,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import Sidebar from "../components/Sidebar";
 
 interface Recipe {
   id: string;
@@ -63,57 +64,78 @@ const RecipeDetails = () => {
   if (!recipe) return <div className="p-6">Recipe not found.</div>;
 
   return (
-    <div className="p-6 min-w-fit mx-5 ">
-      {/* Back Button */}
-      <button
-        onClick={() => navigate("/")}
-        className="mb-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-md"
-      >
-        ← Back
-      </button>
+    <div className="min-h-screen flex bg-[#fae8f1]">
+      {/* 🌸 Sidebar */}
+      <Sidebar />
 
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold">{recipe.title}</h1>
-        <div className="flex gap-3">
-          <Link
-            to={`/edit-recipe/${recipe.id}`}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-          >
-            Edit Recipe
-          </Link>
-
+      {/* 🍰 Main Content */}
+      <div className="flex-1 p-8 overflow-y-auto">
+        {/* 🔝 Top Navigation Bar */}
+        <div className="relative flex items-center justify-between mb-8">
+          {/* Back Button */}
           <button
-            onClick={handleDelete}
-            disabled={deleting}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md disabled:opacity-50"
+            onClick={() => navigate("/")}
+            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-md z-10"
           >
-            {deleting ? "Deleting..." : "Delete Recipe"}
+            ← Back
           </button>
+
+          {/* Centered Title */}
+          <h1 className="absolute left-1/2 transform -translate-x-1/2 text-3xl font-bold text-[#d13289]">
+            {recipe.title}
+          </h1>
+
+          {/* Edit & Delete Buttons */}
+          <div className="flex gap-3 z-10">
+            <Link
+              to={`/edit-recipe/${recipe.id}`}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+            >
+              Edit
+            </Link>
+
+            <button
+              onClick={handleDelete}
+              disabled={deleting}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md disabled:opacity-50"
+            >
+              {deleting ? "Deleting..." : "Delete"}
+            </button>
+          </div>
         </div>
+
+        {/* 🖼️ Centered Recipe Image */}
+        {recipe.image && (
+          <div className="flex justify-center mb-6">
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full max-w-2xl rounded-xl shadow-lg"
+            />
+          </div>
+        )}
+
+        {/* 📝 Description */}
+        {recipe.description && (
+          <p className="text-gray-700 mb-6 text-lg text-center">{recipe.description}</p>
+        )}
+
+        {/* 🧂 Ingredients */}
+        {recipe.ingredients && (
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold text-[#d13289] mb-2">Ingredients</h2>
+            <p className="text-gray-800">{recipe.ingredients}</p>
+          </div>
+        )}
+
+        {/* 👩‍🍳 Instructions */}
+        {recipe.instructions && (
+          <div>
+            <h2 className="text-2xl font-semibold text-[#d13289] mb-2">Instructions</h2>
+            <p className="text-gray-800 whitespace-pre-line">{recipe.instructions}</p>
+          </div>
+        )}
       </div>
-
-      {recipe.image && (
-        <img
-          src={recipe.image}
-          alt={recipe.title}
-          className="w-full max-w-xl rounded-md shadow-md mb-4"
-        />
-      )}
-      <p className="text-gray-700 mb-4">{recipe.description}</p>
-
-      {recipe.ingredients && (
-        <div className="mb-4">
-          <h2 className="text-xl font-semibold">Ingredients:</h2>
-          <p>{recipe.ingredients}</p>
-        </div>
-      )}
-
-      {recipe.instructions && (
-        <div>
-          <h2 className="text-xl font-semibold">Instructions:</h2>
-          <p>{recipe.instructions}</p>
-        </div>
-      )}
     </div>
   );
 };
