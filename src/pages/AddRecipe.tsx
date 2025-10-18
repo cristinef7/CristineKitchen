@@ -25,6 +25,7 @@ const AddRecipe: React.FC = () => {
       alert("❌ Please upload an image before submitting.");
       return;
     }
+    
 
     try {
       setUploading(true);
